@@ -6,7 +6,7 @@ using Microsoft.Office.Tools.Ribbon;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using System.IO;
-using System.Data.SQLite;
+using System.Diagnostics;
 
 namespace SendToCalibre_OutlookPlugin
 {
@@ -25,11 +25,22 @@ namespace SendToCalibre_OutlookPlugin
             {
                 foreach (Attachment item in mailitem.Attachments)
                 {
-                    item.SaveAsFile(@"c:\temp\" + item.FileName);
+
+                    AddFileToCalibre(item);
                 }
             }
         }
 
-     
+        string libpath = "c:\\temp\\cal";
+        string command = "add \"{0}\" --library-path {1}";
+        private void AddFileToCalibre(Attachment item)
+        {
+            string filepath = "c:\\temp\\" + item.FileName;
+            item.SaveAsFile(filepath);
+            string proc = string.Format(command, filepath, libpath);
+            MessageBox.Show(proc);
+            Process.Start("calibredb",proc);
+            
+        }
     }
 }
