@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Office.Tools.Ribbon;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
+using System.IO;
+using System.Data.SQLite;
 
 namespace SendToCalibre_OutlookPlugin
 {
@@ -27,5 +29,7 @@ namespace SendToCalibre_OutlookPlugin
                 }
             }
         }
+
+     
     }
 }
