@@ -27,7 +27,7 @@ namespace SendToCalibre_OutlookPlugin
                 {
                     foreach (Attachment item in mailitem.Attachments)
                     {
-                        //TODO only epub!
+                        //TODO only epub/ebook-fileformats filtering
 
                         AddFileToCalibre(item);
                     }
@@ -55,16 +55,25 @@ namespace SendToCalibre_OutlookPlugin
             }
             else
             {
-                string temppath = Path.GetTempPath();
-                string filepath = Path.Combine(temppath, item.FileName);
+                try
+                {
+                    string temppath = Path.GetTempPath();
+                    string filepath = Path.Combine(temppath, item.FileName);
 
-                item.SaveAsFile(filepath);
-                string procargs = string.Format(command, filepath, libpath);
+                    item.SaveAsFile(filepath);
+                    string procargs = string.Format(command, filepath, libpath);
 
-                var proc = Process.Start("calibredb", procargs);
-                proc.WaitForExit();
+                    var proc = Process.Start("calibredb", procargs);
+                    proc.WaitForExit();
 
-                File.Delete(filepath);
+                    File.Delete(filepath);
+                }
+                catch (System.Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message, "Something went wrong :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
 
         }
@@ -74,5 +83,7 @@ namespace SendToCalibre_OutlookPlugin
             SelectCalibPath win = new SelectCalibPath();
             win.ShowDialog();
         }
+
+        //TODO check if calibredb exists and/or add through setting
     }
 }

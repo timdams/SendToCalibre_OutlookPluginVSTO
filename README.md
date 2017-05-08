@@ -7,3 +7,4 @@ For now, the tool uses the calibredb command and (for now) this commands needs t
 Tool was mainly written to learn to work with the .NET VSTO plugin project type(s).
 
 ![alt text](/wiki/caldemo.png)
+[View in action](https://youtu.be/9CU25fwgbNs)
