@@ -14,7 +14,7 @@ namespace SendToCalibre_OutlookPlugin
     {
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, RibbonControlEventArgs e)
@@ -23,10 +23,18 @@ namespace SendToCalibre_OutlookPlugin
             var mailitem = m.CurrentItem as MailItem;
             if (mailitem != null)
             {
-                foreach (Attachment item in mailitem.Attachments)
+                if (mailitem.Attachments.Count > 0)
                 {
+                    foreach (Attachment item in mailitem.Attachments)
+                    {
+                        //TODO only epub!
 
-                    AddFileToCalibre(item);
+                        AddFileToCalibre(item);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("This email doesn't have any attachments...", "Whoopsie", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -40,7 +48,10 @@ namespace SendToCalibre_OutlookPlugin
             string libpath = Properties.Settings.Default.calibredbpath;
             if (libpath == "")
             {
-                MessageBox.Show("No calibre db chosen! Set this first please.");
+                if(MessageBox.Show("No calibre db chosen! Go to preferences.", "Whoopsie", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning )==DialogResult.Yes)
+                {
+                    btnSettings_Click(this, null);
+                }
             }
             else
             {
