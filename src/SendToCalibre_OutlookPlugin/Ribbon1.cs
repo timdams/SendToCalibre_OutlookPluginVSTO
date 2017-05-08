@@ -31,15 +31,23 @@ namespace SendToCalibre_OutlookPlugin
             }
         }
 
+      
         string libpath = "c:\\temp\\cal";
+
         string command = "add \"{0}\" --library-path {1}";
         private void AddFileToCalibre(Attachment item)
         {
-            string filepath = "c:\\temp\\" + item.FileName;
+            string temppath = Path.GetTempPath();
+            
+            string filepath = Path.Combine(temppath, item.FileName);
+           
             item.SaveAsFile(filepath);
-            string proc = string.Format(command, filepath, libpath);
-            MessageBox.Show(proc);
-            Process.Start("calibredb",proc);
+            string procargs = string.Format(command, filepath, libpath);
+           
+            var proc =Process.Start("calibredb",procargs);
+            proc.WaitForExit();
+
+            File.Delete(filepath);
             
         }
     }
