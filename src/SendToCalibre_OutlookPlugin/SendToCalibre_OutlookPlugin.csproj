@@ -174,6 +174,9 @@
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectCalibPath.resx">
+      <DependentUpon>SelectCalibPath.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -190,6 +193,12 @@
     <Compile Include="Ribbon1.Designer.cs">
       <DependentUpon>Ribbon1.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectCalibPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectCalibPath.Designer.cs">
+      <DependentUpon>SelectCalibPath.cs</DependentUpon>
+    </Compile>
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -204,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Calibre_logo_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings-5-xxl.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

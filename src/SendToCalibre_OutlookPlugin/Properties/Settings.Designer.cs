@@ -23,13 +23,15 @@ namespace SendToCalibre_OutlookPlugin.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\Temp\\cal\\metadata.db")]
-        public string metadataConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string calibredbpath {
             get {
-                return ((string)(this["metadataConnectionString"]));
+                return ((string)(this["calibredbpath"]));
+            }
+            set {
+                this["calibredbpath"] = value;
             }
         }
     }

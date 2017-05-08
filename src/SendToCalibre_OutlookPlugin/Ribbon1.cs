@@ -21,7 +21,7 @@ namespace SendToCalibre_OutlookPlugin
         {
             var m = e.Control.Context as Inspector;
             var mailitem = m.CurrentItem as MailItem;
-            if(mailitem!=null)
+            if (mailitem != null)
             {
                 foreach (Attachment item in mailitem.Attachments)
                 {
@@ -31,24 +31,37 @@ namespace SendToCalibre_OutlookPlugin
             }
         }
 
-      
-        string libpath = "c:\\temp\\cal";
+
+
 
         string command = "add \"{0}\" --library-path {1}";
         private void AddFileToCalibre(Attachment item)
         {
-            string temppath = Path.GetTempPath();
-            
-            string filepath = Path.Combine(temppath, item.FileName);
-           
-            item.SaveAsFile(filepath);
-            string procargs = string.Format(command, filepath, libpath);
-           
-            var proc =Process.Start("calibredb",procargs);
-            proc.WaitForExit();
+            string libpath = Properties.Settings.Default.calibredbpath;
+            if (libpath == "")
+            {
+                MessageBox.Show("No calibre db chosen! Set this first please.");
+            }
+            else
+            {
+                string temppath = Path.GetTempPath();
+                string filepath = Path.Combine(temppath, item.FileName);
 
-            File.Delete(filepath);
-            
+                item.SaveAsFile(filepath);
+                string procargs = string.Format(command, filepath, libpath);
+
+                var proc = Process.Start("calibredb", procargs);
+                proc.WaitForExit();
+
+                File.Delete(filepath);
+            }
+
+        }
+
+        private void btnSettings_Click(object sender, RibbonControlEventArgs e)
+        {
+            SelectCalibPath win = new SelectCalibPath();
+            win.ShowDialog();
         }
     }
 }
